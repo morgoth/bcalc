@@ -1,28 +1,32 @@
 # Bcalc
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bcalc`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Ruby bindings to C library Bridge Calculator http://bcalc.w8.pl
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'bcalc'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install bcalc
+`$ gem install bcalc`
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Bcalc::Calculator.new(
+  deal: "N:.63.AKQ987.A9732 A8654.KQ5.T.QJT6 J973.J98742.3.K4 KQT2.AT.J6542.85",
+  declarer: "N",
+  suit: "NT"
+).calculate
+```
+
+or low level:
+
+```ruby
+solver = Bcalc::Lib.bcalcDDS_new(
+  "PBN",
+  "N:.63.AKQ987.A9732 A8654.KQ5.T.QJT6 J973.J98742.3.K4 KQT2.AT.J6542.85",
+  Bcalc::Lib::BCALC_NT,
+  Bcalc::Lib::BCALC_PLAYER_NORTH
+)
+Bcalc::Lib.bcalcDDS_getTricksToTake(solver)
+```
 
 ## Development
 
@@ -32,10 +36,16 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Wojciech Wnętrzak/bcalc.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/morgoth/bcalc.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+It uses compiled version of C library by Piotr Beling which uses:
+
+```
+Bridge Calculator (and its C API) is freeware for private and non-commercial use (use to develop freeware applications) and it's distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Each distributed product which use this API/library should includes readable for end-user information about this fact and link to Bridge Calculator web-page: http://bcalc.w8.pl/
+```
