@@ -24,4 +24,24 @@ class LibTest < Minitest::Test
     )
     assert_nil Bcalc::Lib.bcalcDDS_delete(solver)
   end
+
+  def test_last_non_nil_error
+    solver = Bcalc::Lib.bcalcDDS_new(
+      "PBN",
+      "wrong",
+      Bcalc::Lib::BCALC_NT,
+      Bcalc::Lib::BCALC_PLAYER_NORTH
+    )
+    assert_equal "Error: not received expected expression \":\"", Bcalc::Lib.bcalcDDS_getLastError(solver)
+  end
+
+  def test_last_nil_error
+    solver = Bcalc::Lib.bcalcDDS_new(
+      "PBN",
+      "N:.63.AKQ987.A9732 A8654.KQ5.T.QJT6 J973.J98742.3.K4 KQT2.AT.J6542.85",
+      Bcalc::Lib::BCALC_NT,
+      Bcalc::Lib::BCALC_PLAYER_NORTH
+    )
+    assert_nil Bcalc::Lib.bcalcDDS_getLastError(solver)
+  end
 end

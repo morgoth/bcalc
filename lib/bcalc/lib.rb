@@ -21,5 +21,6 @@ module Bcalc
     attach_function :bcalcDDS_new, [:string, :string, :int, :int], :pointer
     attach_function :bcalcDDS_getTricksToTake, [:pointer], :int
     attach_function :bcalcDDS_delete, [:pointer], :void
+    attach_function :bcalcDDS_getLastError, [:pointer], :string
   end
 end
